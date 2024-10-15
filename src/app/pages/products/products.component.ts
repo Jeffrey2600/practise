@@ -9,6 +9,10 @@ import { MatListModule } from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { SidenavComponent } from "../../sidenav/sidenav.component";
 import { Inject } from '@angular/core';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+
 
 
 import { CartService } from '../../services/cart.service'; // Update the path to match the directory structure
@@ -43,24 +47,35 @@ export class ProductsComponent implements OnInit {
   // ) { }
 
   getData() {
-    let url : string = '/assets/data/products.json';
+    let url: string = '/assets/data/products.json';
     this.httpClient.get(url).subscribe((data: any) => {
-      // console.log(data);
-      this.imageList = (data && data.items && data.items.length > 0 ) ? data.items : [];
-      this.doFilter();
+        this.imageList = (data && data.items && data.items.length > 0) ? data.items : [];
+        this.doFilter('all', new MouseEvent('click')); // Create a new MouseEvent
     });
+}
+
+  shuffleArray(array: any[]): any[] {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+    }
+    return array;
   }
 
-  doFilter(input: any = null) {
-    if(input) {
-      this.filteredList = (this.imageList && this.imageList.length > 0) ? this.imageList.filter((x:any) => {
-        console.log(this.filteredList);  // Check if this contains the expected data
-        return (x && x.category === input) ? true : false;
-      }) : []
-    } else {
-      this.filteredList = this.imageList;
-    }
+  doFilter(input: string | null = null, event: MouseEvent) {
+  event.preventDefault(); // Prevent default button behavior
+  
+  if (input === 'all') {
+    // Shuffle the entire imageList when "All" is clicked
+    this.filteredList = this.shuffleArray([...this.imageList]); // Shuffling a copy of imageList
+  } else if (input) {
+    this.filteredList = (this.imageList && this.imageList.length > 0) ? this.imageList.filter((x: any) => {
+      return (x && x.category === input) ? true : false;
+    }) : [];
+  } else {
+    this.filteredList = this.imageList; // Default case to show all products
   }
+}
 
   clicked(){
     console.log("hii")

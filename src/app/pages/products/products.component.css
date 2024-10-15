@@ -186,3 +186,41 @@ p {
     max-height: 140px;
   }
 }
+.product-card {
+  margin: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center; /* Center align content */
+}
+
+.product-card img {
+  width: 100%; /* Ensure the image covers the card */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.product-card video {
+  width: 100%; /* Ensure the video covers the card */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.product-card mat-card-header {
+  margin-top: 10px; /* Add some space above header */
+}
+
+.product-card mat-card-title {
+  font-size: 1.2em; /* Adjust title size */
+  font-weight: bold;
+  color: #333; /* Darker color for better readability */
+}
+
+.product-card mat-card-subtitle {
+  color: #FFA500; /* Orange color for price and shipping text */
+  font-weight: normal; /* Normal font weight for subtitling */
+}
+
+.btn-primary {
+  background-color: #FFA500; /* Button color */
+  color: white; /* White text for button */
+  margin-top: 10px; /* Space between text and button */
+}
